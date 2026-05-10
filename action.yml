@@ -1,0 +1,17 @@
+name: Setup Poetry
+description: Set up your GitHub Actions workflow with a specific version of Poetry
+author: Nikita Grishko
+inputs:
+  poetry-preview:
+    description: Allow to install prerelease versions of Poetry
+    required: false
+    default: "false"
+  poetry-version:
+    description: Poetry version to use, if version is not provided then latest stable version will be used
+    required: false
+runs:
+  using: node16
+  main: dist/index.js
+branding:
+  icon: package
+  color: purple
