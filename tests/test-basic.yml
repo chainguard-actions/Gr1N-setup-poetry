@@ -1,4 +1,4 @@
-name: Test basic Poetry setup (default settings)
+name: Test basic usage (latest stable Poetry)
 on:
   workflow_dispatch:
 jobs:
