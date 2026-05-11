@@ -1,4 +1,4 @@
-name: Test basic Poetry setup
+name: Test basic usage - install latest stable Poetry
 on:
   workflow_dispatch:
 jobs:
@@ -15,6 +15,5 @@ jobs:
             echo "FAIL: poetry command not found"
             exit 1
           fi
-          POETRY_VERSION=$(poetry --version)
-          echo "actual: $POETRY_VERSION"
-          echo "PASS: poetry is installed: $POETRY_VERSION"
+          echo "PASS: poetry is installed"
+          poetry --version
