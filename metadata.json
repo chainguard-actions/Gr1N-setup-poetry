@@ -1,7 +1,7 @@
 {
   "owner": "Gr1N",
   "name": "setup-poetry",
-  "visibility": "internal",
+  "visibility": "public",
   "description": "Set up your GitHub Actions workflow with a specific version of Poetry",
   "block_publish": false
 }
