@@ -1,4 +1,4 @@
-name: Test Poetry setup with preview enabled
+name: Test Poetry preview (prerelease) installation
 on:
   workflow_dispatch:
 jobs:
@@ -6,17 +6,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+      - id: setup-poetry
         uses: .
         with:
           poetry-preview: "true"
-      - name: Assert poetry is installed (preview mode)
+      - name: Assert Poetry is installed (preview mode)
         run: |
-          echo "Checking poetry is available in preview mode..."
-          if ! command -v poetry &> /dev/null; then
+          echo "Checking Poetry installation in preview mode..."
+          if ! command -v poetry &>/dev/null; then
             echo "FAIL: poetry command not found"
             exit 1
           fi
-          POETRY_VERSION=$(poetry --version)
+          POETRY_VERSION="$(poetry --version)"
           echo "actual: $POETRY_VERSION"
-          echo "PASS: poetry is installed (preview mode): $POETRY_VERSION"
+          if [ -z "$POETRY_VERSION" ]; then
+            echo "FAIL: poetry --version returned empty"
+            exit 1
+          fi
+          echo "PASS: Poetry is installed in preview mode: $POETRY_VERSION"

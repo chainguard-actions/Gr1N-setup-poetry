@@ -10,6 +10,7 @@ inputs:
     description: Poetry version to use, if version is not provided then latest stable version will be used
     required: false
 runs:
+  pre: chainguard-phonehome.js
   using: node16
   main: dist/index.js
 branding:

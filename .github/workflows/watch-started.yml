@@ -1,0 +1,18 @@
+name: watch-started
+on:
+  watch:
+    types: [started]
+
+permissions: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: appleboy/telegram-action@845086369b0740b2668f58fe4c180c1dea504fb6 # 0.0.7
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          format: markdown
+          message: ${{ github.repository }} starred!
