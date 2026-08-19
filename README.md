@@ -8,7 +8,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
-| v8 | [`v8`](https://github.com/chainguard-actions/Gr1N-setup-poetry/tree/v8) | — |
+| v8 | [`v8`](https://github.com/chainguard-actions/Gr1N-setup-poetry/tree/v8) | [`15821dc`](https://github.com/Gr1N/setup-poetry/commit/15821dc8a61bc630db542ae4baf6a7c19a994844) |
 | v9 | [`v9`](https://github.com/chainguard-actions/Gr1N-setup-poetry/tree/v9) | — |
 
 ## Privacy
