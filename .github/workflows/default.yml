@@ -1,0 +1,59 @@
+name: default
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions: {}
+
+jobs:
+  # run linters and unit tests
+  lint-and-test-units:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+      - uses: actions/cache@6f8efc29b200d32929f49075959781ed54ec270c # v3
+        id: npm-cache
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm install
+      - run: npm run lint
+      - run: npm run test
+
+  # run action on a clean machine without building to check that it works as expected
+  test-integration:
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+        poetry-version:
+          - "1.7.1"
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+      fail-fast: true
+
+    steps:
+      - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3
+      - uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c # v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: ./
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - run: poetry --version

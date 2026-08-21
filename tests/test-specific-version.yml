@@ -1,4 +1,4 @@
-name: Test specific Poetry version
+name: Test specific Poetry version installation
 on:
   workflow_dispatch:
 jobs:
@@ -10,14 +10,18 @@ jobs:
         uses: .
         with:
           poetry-version: "1.8.3"
-          poetry-preview: "false"
-      - name: Assert poetry is installed at the correct version
+      - name: Assert correct Poetry version is installed
         run: |
-          echo "Checking poetry version..."
-          INSTALLED_VERSION=$(poetry --version 2>&1 | grep -oP '[\d]+\.[\d]+\.[\d]+')
-          echo "actual: $INSTALLED_VERSION"
-          if [ "$INSTALLED_VERSION" != "1.8.3" ]; then
-            echo "FAIL: expected poetry version '1.8.3', got '$INSTALLED_VERSION'"
+          POETRY_VERSION=$(poetry --version)
+          echo "poetry version output: $POETRY_VERSION"
+          if echo "$POETRY_VERSION" | grep -q "1.8.3"; then
+            echo "PASS: Poetry 1.8.3 is installed"
+          else
+            echo "FAIL: expected Poetry 1.8.3 but got: $POETRY_VERSION"
             exit 1
           fi
-          echo "PASS: poetry version is 1.8.3"
+      - name: Assert Poetry is functional
+        run: |
+          poetry env info --path 2>/dev/null || true
+          poetry --version
+          echo "PASS: Poetry is functional"

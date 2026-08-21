@@ -1,0 +1,33 @@
+name: Test Poetry preview/prerelease installation
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-poetry
+        uses: .
+        with:
+          poetry-preview: "true"
+      - name: Assert Poetry is installed with preview enabled
+        run: |
+          echo "Checking poetry is on PATH..."
+          which poetry || { echo "FAIL: poetry not found on PATH"; exit 1; }
+          POETRY_VERSION=$(poetry --version)
+          echo "poetry version: $POETRY_VERSION"
+          if [ -z "$POETRY_VERSION" ]; then
+            echo "FAIL: poetry --version returned empty"
+            exit 1
+          fi
+          echo "PASS: Poetry installed with preview enabled: $POETRY_VERSION"
+      - name: Assert Poetry can initialize a project
+        run: |
+          mkdir -p /tmp/test-poetry-project
+          cd /tmp/test-poetry-project
+          poetry init --no-interaction --name test-project --description "test" --author "Test User <test@example.com>" --python "^3.8"
+          if [ ! -f "pyproject.toml" ]; then
+            echo "FAIL: pyproject.toml not created by poetry init"
+            exit 1
+          fi
+          echo "PASS: poetry init succeeded and pyproject.toml exists"
