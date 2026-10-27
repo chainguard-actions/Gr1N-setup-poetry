@@ -1,0 +1,116 @@
+{
+  "name": "setup-poetry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Set up your GitHub Actions workflow with a specific version of Poetry",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "ncc build src/main.ts",
+    "lint:eslint": "eslint",
+    "lint:prettier": "prettier --check {*.js,*.json,*.yml,**/*.ts,.github/**/*.yml}",
+    "lint:tsc": "tsc --noEmit",
+    "lint": "npm-run-all lint:*",
+    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 jest --coverage",
+    "upgrade": "ncu --upgrade"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gr1N/setup-poetry.git"
+  },
+  "keywords": [
+    "actions",
+    "setup",
+    "python",
+    "poetry"
+  ],
+  "author": "Nikita Grishko",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/exec": "^3.0.0",
+    "@actions/tool-cache": "^4.0.0",
+    "semver": "^7.8.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.19.2",
+    "@types/semver": "^7.8.0",
+    "@vercel/ncc": "^0.45.0",
+    "eslint": "^10.13.0",
+    "eslint-plugin-github": "^6.1.2",
+    "eslint-plugin-jest": "^29.17.0",
+    "globals": "^17.13.0",
+    "jest": "^30.5.2",
+    "npm-check-updates": "^23.1.1",
+    "npm-run-all2": "^9.0.4",
+    "prettier": "^3.9.10",
+    "ts-jest": "^29.4.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": false,
+    "overrides": [
+      {
+        "files": [
+          "*.json"
+        ],
+        "options": {
+          "parser": "json"
+        }
+      },
+      {
+        "files": [
+          "*.js",
+          "**/*.ts"
+        ],
+        "options": {
+          "parser": "typescript",
+          "arrowParens": "avoid",
+          "bracketSpacing": true,
+          "semi": false,
+          "trailingComma": "none"
+        }
+      },
+      {
+        "files": [
+          "*.yml",
+          ".github/**/*.yml"
+        ],
+        "options": {
+          "parser": "yaml"
+        }
+      }
+    ]
+  },
+  "jest": {
+    "clearMocks": true,
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.ts"
+    ],
+    "transform": {
+      "^.+\\.ts$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
+    "verbose": true
+  }
+}
