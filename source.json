@@ -4,8 +4,13 @@
   "version": "v9",
   "commit_sha": "48b0f77c8c1b1b19cb962f0f00dff7b4be8f81ec",
   "url": "https://github.com/Gr1N/setup-poetry",
-  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "policy_sha": "374911c4be584df24e6da57af2d990570ef0f859",
   "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
   "test_agent_version": "2",
-  "harden_agent_version": "2"
+  "harden_agent_version": "2",
+  "dist_artifact": {
+    "gcs_uri": "gs://patch-actions-node-artifacts/dist-artifacts/Gr1N/setup-poetry/v9/sha256-8a3c317b0d8971f7524216fb53ad8abca3b7c176a43f761b686ecadd4aac4052.tar.gz",
+    "sha256": "8a3c317b0d8971f7524216fb53ad8abca3b7c176a43f761b686ecadd4aac4052",
+    "size_bytes": 71133
+  }
 }
